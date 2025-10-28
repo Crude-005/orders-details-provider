@@ -40,16 +40,16 @@ export default function HomePage() {
     return;
     }
 
-    console.log('Customer ID:', customerId);
-    console.log('Order ID:', orderId);
-    console.log("Loading.. ");
+    // console.log('Customer ID:', customerId);
+    // console.log('Order ID:', orderId);
+    // console.log("Loading.. ");
     try {
       const res = await axios.get(`api/orders?${customerId ? `customerId=${customerId}` : ''}${orderId ? `&orderId=${orderId}` : ''}`);
-      console.log('API Response:', res.data);
+      // console.log('API Response:', res.data);
 
       if (res.data.success) {
         setOrders(res.data.orders);
-        console.log('Orders loaded:', res.data.orders);
+        // console.log('Orders loaded:', res.data.orders);
       } else {
         console.error('API returned error:', res.data.error);
         alert('Failed to load orders');
