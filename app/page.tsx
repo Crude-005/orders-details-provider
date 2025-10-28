@@ -1,65 +1,130 @@
-import Image from "next/image";
 
-export default function Home() {
+'use client';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+
+
+export default function HomePage() {
+  const [orders, setOrders] = useState([]);
+  const [customerId, setCustomerId] = useState('');
+  const [orderId, setOrderId] = useState('');
+
+  // useEffect(() => {
+  //   const fetchOrders = async () => {
+  //     const res = await fetch('api/orders');
+  //     const data = await res.json();
+  //     if (data.success) {
+  //       setOrders(data.orders);
+  //     }
+  //   };
+  //   fetchOrders();
+  // }, []);
+  
+  
+  const handleSubmit =async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // if (customerId == '' && orderId == ''){
+    //   alert("Please enter valid Customer Id or Order ID");
+    // }
+    // else if(customerId != '' && ){
+
+    // }
+    if (isNaN(parseInt(customerId)) && customerId != ''){
+      alert('Please enter a valid Customer ID');
+      return;
+    }
+    if(isNaN(parseInt(orderId)) && orderId != '' ){
+      alert('Please enter a valid Order ID');
+    return;
+    }
+
+    console.log('Customer ID:', customerId);
+    console.log('Order ID:', orderId);
+    console.log("Loading.. ");
+    try {
+      const res = await axios.get(`api/orders?${customerId ? `customerId=${customerId}` : ''}${orderId ? `&orderId=${orderId}` : ''}`);
+      console.log('API Response:', res.data);
+
+      if (res.data.success) {
+        setOrders(res.data.orders);
+        console.log('Orders loaded:', res.data.orders);
+      } else {
+        console.error('API returned error:', res.data.error);
+        alert('Failed to load orders');
+      }
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      alert('Failed to fetch orders');
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ marginBottom: '2rem' }}>Organization Name</h1>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
+        <label htmlFor="customerId">Customer ID:</label>
+        <input
+          type="text"
+          id="customerId"
+          value={customerId.trim()}
+          onChange={(e) => setCustomerId(e.target.value)}
+          placeholder="Enter customer ID..."
+          style={{ marginBottom: '1rem', padding: '0.5rem' }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        <label htmlFor="orderId">Order ID:</label>
+        <input
+          type="text"
+          id="orderId"
+          value={orderId.trim()}
+          onChange={(e) => setOrderId(e.target.value)}
+          placeholder="Enter order ID..."
+          style={{ marginBottom: '1rem', padding: '0.5rem' }}
+        />
+
+        <button type="submit" style={{ padding: '0.75rem', backgroundColor: '#0070f3', color: 'white', border: 'none' }}>
+          Submit
+        </button>
+      </form>
+      {orders.length > 0 ? (
+  <div style={{ marginTop: '2rem' }}>
+    <h2>Orders</h2>
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
+        <thead>
+          <tr>
+            <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Order ID</th>
+            <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Status</th>
+            <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Order Date</th>
+            <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Lens Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order, index) => (
+            <tr key={index}>
+              <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Order ID']}</td>
+              <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Status']}</td>
+              <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Order Date']}</td>
+              <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Lens Type']}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+  </div>
+    ) : (
+      <div style={{ 
+        marginTop: '2rem', 
+        padding: '1rem', 
+        backgroundColor: '#f5f5f5', 
+        borderRadius: '4px',
+        textAlign: 'center' 
+      }}>
+        <p>No data found</p>
+      </div>
+    )}
+    </main>
   );
 }
