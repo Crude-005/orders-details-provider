@@ -32,14 +32,14 @@ export default function HomePage() {
     // else if(customerId != '' && ){
 
     // }
-    if (isNaN(parseInt(customerId)) && customerId != '') {
-      alert('Please enter a valid Customer ID');
-      return;
-    }
-    if (isNaN(parseInt(orderId)) && orderId != '') {
-      alert('Please enter a valid Order ID');
-      return;
-    }
+    // if (isNaN(parseInt(customerId)) && customerId != '') {
+    //   alert('Please enter a valid Customer ID');
+    //   return;
+    // }
+    // if (isNaN(parseInt(orderId)) && orderId != '') {
+    //   alert('Please enter a valid Order ID');
+    //   return;
+    // }
 
     setSubmitButton("Loading..");
     // console.log('Customer ID:', customerId);
@@ -88,16 +88,10 @@ export default function HomePage() {
           placeholder="Enter order ID..."
           style={{ marginBottom: '1rem', padding: '0.5rem' }}
         />
-        {submitButton == 'Submit' ? (
-          <button type="submit" style={{ padding: '0.75rem', backgroundColor: '#0070f3', color: 'white', border: 'none' }}>
-            {submitButton}
-          </button>) :
-          (
-            <button type="submit" disabled={true} style={{ padding: '0.75rem', backgroundColor: '#0070f3', color: 'white', border: 'none' }}>
-              {submitButton}
-            </button>
-          )
-        }
+        <button type="submit" disabled={submitButton != 'Submit'} style={{ padding: '0.75rem', backgroundColor: '#0070f3', color: 'white', border: 'none' }}>
+          {submitButton}
+        </button>
+
       </form>
       {orders.length > 0 ? (
         <div style={{ marginTop: '2rem' }}>
