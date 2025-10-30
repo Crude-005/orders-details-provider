@@ -36,10 +36,10 @@ export default function HomePage() {
     //   alert('Please enter a valid Customer ID');
     //   return;
     // }
-    // if (isNaN(parseInt(orderId)) && orderId != '') {
-    //   alert('Please enter a valid Order ID');
-    //   return;
-    // }
+    if (isNaN(parseInt(orderId)) && orderId != '') {
+      alert('Please enter a valid Order ID');
+      return;
+    }
 
     setSubmitButton("Loading..");
     // console.log('Customer ID:', customerId);
