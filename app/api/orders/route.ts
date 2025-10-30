@@ -6,8 +6,8 @@ import clientPromise from '@/lib/mongodb';
 export async function GET(request : NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const cID = searchParams.get('customerId') || '';
-    const oID = searchParams.get('orderId') || '';
+    const cID = searchParams.get('customerId')?.toUpperCase() || '';
+    const oID = parseInt(searchParams.get('orderId') || '-1');
 
     const client = await clientPromise;
     const db = client.db('keshav'); // Make sure this matches your DB name
@@ -17,7 +17,7 @@ export async function GET(request : NextRequest) {
     if (cID == '') {
       query = {"Order ID" : oID };
     }
-    else if( oID == ''){
+    else if( oID == -1){
       query = {"Customer ID" : cID };
     }
     else{

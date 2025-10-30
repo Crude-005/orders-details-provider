@@ -66,70 +66,76 @@ export default function HomePage() {
   };
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ marginBottom: '2rem' }}>Jagdamba Optics Pvt Ltd</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
-        <label htmlFor="customerId">Customer ID:</label>
-        <input
-          type="text"
-          id="customerId"
-          value={customerId.trim()}
-          onChange={(e) => setCustomerId(e.target.value)}
-          placeholder="Enter customer ID..."
-          style={{ marginBottom: '1rem', padding: '0.5rem' }}
-        />
 
-        <label htmlFor="orderId">Order ID:</label>
-        <input
-          type="text"
-          id="orderId"
-          value={orderId.trim()}
-          onChange={(e) => setOrderId(e.target.value)}
-          placeholder="Enter order ID..."
-          style={{ marginBottom: '1rem', padding: '0.5rem' }}
-        />
-        <button type="submit" disabled={submitButton != 'Submit'} style={{ padding: '0.75rem', backgroundColor: '#0070f3', color: 'white', border: 'none' }}>
-          {submitButton}
-        </button>
+    <html lang="en">
+      <body>{
 
-      </form>
-      {orders.length > 0 ? (
-        <div style={{ marginTop: '2rem' }}>
-          <h2>Orders</h2>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
-              <thead>
-                <tr>
-                  <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Order ID</th>
-                  <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Status</th>
-                  <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Order Date</th>
-                  <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Lens Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order, index) => (
-                  <tr key={index}>
-                    <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Order ID']}</td>
-                    <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Status']}</td>
-                    <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Order Date']}</td>
-                    <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Lens Type']}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ) : (
-        <div style={{
-          marginTop: '2rem',
-          padding: '1rem',
-          backgroundColor: '#f5f5f5',
-          borderRadius: '4px',
-          textAlign: 'center'
-        }}>
-          <p>No data found</p>
-        </div>
-      )}
-    </main>
+        <main style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
+          <h1 style={{ marginBottom: '2rem' }}>Jagdamba Optics Pvt Ltd</h1>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
+            <label htmlFor="customerId">Customer ID:</label>
+            <input
+              type="text"
+              id="customerId"
+              value={customerId.trim()}
+              onChange={(e) => setCustomerId(e.target.value)}
+              placeholder="Enter customer ID..."
+              style={{ marginBottom: '1rem', padding: '0.5rem' }}
+            />
+
+            <label htmlFor="orderId">Order ID:</label>
+            <input
+              type="text"
+              id="orderId"
+              value={orderId.trim()}
+              onChange={(e) => setOrderId(e.target.value)}
+              placeholder="Enter order ID..."
+              style={{ marginBottom: '1rem', padding: '0.5rem' }}
+            />
+            <button type="submit" disabled={submitButton != 'Submit'} style={{ padding: '0.75rem', backgroundColor: '#0070f3', color: 'white', border: 'none' }}>
+              {submitButton}
+            </button>
+
+          </form>
+          {orders.length > 0 ? (
+            <div style={{ marginTop: '2rem' }}>
+              <h2>Orders</h2>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
+                  <thead>
+                    <tr>
+                      <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Order ID</th>
+                      <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Status</th>
+                      <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Order Date</th>
+                      <th style={{ padding: '0.5rem', borderBottom: '1px solid #ddd', textAlign: 'left' }}>Lens Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order, index) => (
+                      <tr key={index}>
+                        <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Order ID']}</td>
+                        <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Status']}</td>
+                        <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Order Date']}</td>
+                        <td style={{ padding: '0.5rem', borderBottom: '1px solid #ddd' }}>{order['Lens Type']}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            <div style={{
+              marginTop: '2rem',
+              padding: '1rem',
+              backgroundColor: '#f5f5f5',
+              borderRadius: '4px',
+              textAlign: 'center'
+            }}>
+              <p>No data found</p>
+            </div>
+          )}
+        </main>
+      }</body>
+    </html>
   );
 }
